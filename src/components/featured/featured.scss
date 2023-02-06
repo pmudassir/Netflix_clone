@@ -2,7 +2,7 @@
   position: relative;
   height: 90vh;
 
-  .category{
+  .category {
     position: absolute;
     top: 80px;
     left: 50px;
@@ -11,6 +11,15 @@
     display: flex;
     align-items: center;
     color: white;
+
+    select {
+      cursor: pointer;
+      background-color: var(--main-color);
+      border: 1px solid white;
+      color: white;
+      margin-left: 25px;
+      padding: 5px;
+    }
   }
 
   img {
@@ -37,9 +46,8 @@
     }
 
     .buttons {
-      display: flex;ƒ
-
-      button {
+      display: flex;
+       button {
         padding: 10px 20px;
         border-radius: 5px;
         border: none;
