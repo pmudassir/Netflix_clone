@@ -2,7 +2,29 @@ import "./listitem.scss"
 
 const ListItem = () => {
   return (
-    <div className="listItems">ListItem</div>
+    <div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+      <div>
+        <div className="listItems">ListItem</div>
+      </div>
+    </div>
   )
 }
 
