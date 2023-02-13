@@ -60,6 +60,22 @@
         font-size: 14px;
         font-weight: 600;
         color: gray;
+
+        .limit {
+          border: 1px solid gray;
+          padding: 1px 3px;
+          margin: 0px 10px;
+        }
+      }
+
+      .desc{
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .genre{
+        font-size: 14px;
+        color: lightgray;
       }
     }
   }
