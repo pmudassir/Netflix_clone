@@ -8,4 +8,4 @@ const ListSchema = new mongoose.Schema(
         content: { type: Array, },
     }, { timestamps: true })
 
-module.export = mongoose.model("List", ListSchema)
+module.exporst = mongoose.model("List", ListSchema)

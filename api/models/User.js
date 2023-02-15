@@ -9,4 +9,4 @@ const UserSchema = new mongoose.Schema(
         isAdmin: { type: Boolean, default: false }
     }, { timestamps: true })
 
-module.export = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("User", UserSchema)
