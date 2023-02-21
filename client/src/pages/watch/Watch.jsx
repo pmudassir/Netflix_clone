@@ -4,19 +4,18 @@ import "./watch.scss"
 
 const Watch = () => {
     const location = useLocation()
-    console.log(location.movie);
-
+    const movie = location.state.movie.video
     return (
         <div className="watch">
-            <div className="back">
-                <ArrowBackOutlined />
-                <Link to="/" className="link">
+            <Link to="/" className="link">
+                <div className="back">
+                    <ArrowBackOutlined />
                     Home
-                </Link>
-            </div>
+                </div>
+            </Link>
             <video
                 className="video"
-                src="https://blog.contus.com/wp-content/uploads/2022/05/vod-app.mp4"
+                src={movie}
                 controls
                 progress
                 autoPlay

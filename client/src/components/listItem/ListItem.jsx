@@ -25,14 +25,15 @@ const ListItem = ({ index, item }) => {
   }, [item])
 
   return (
-    <Link to={{ pathname: "/watch", movie: movie }}>
+    <Link to="/watch" state={{ movie: movie }}>
+      {/* passing props through link */}
       <div
         className="listItems"
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }} //calculations to adjust hover
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img src={movie.img} alt="" />
+        <img src={movie.imgSm} alt="" />
         {isHovered && (
           <>
             <video src={movie.trailer} autoPlay={true} loop />
