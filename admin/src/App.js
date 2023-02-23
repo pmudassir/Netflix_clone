@@ -9,47 +9,8 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
-import { useEffect, useState } from "react";
-import axios from "axios"
 
 function App() {
-  const MONTHS = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ]
-
-  const [userStats, setUserStats] = useState([])
-
-  useEffect(() => {
-    const getStats = async () => {
-      try {
-        const res = await axios.get("/users/stats", {
-          headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRmYzcwYWQzZGEyY2MyNjdjNDVhZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3Njg2OTU0NCwiZXhwIjoxNjc3MzAxNTQ0fQ.chSWsa2tFXnc1Vn3WjaOxv-ItjhOkq9q-S3xw4pRm0s"
-          }
-        })
-        res.data.map((item) => (
-          setUserStats((prev) => [
-            ...prev, { name: MONTHS[item._id - 1], "New User": item.total }
-          ])
-        ))
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getStats()
-  }, [])
-
   return (
     <Router>
       <Topbar />
@@ -68,7 +29,7 @@ function App() {
           <Route path="/newUser">
             <NewUser />
           </Route>
-          <Route path="/products">
+          <Route path="/movies">
             <ProductList />
           </Route>
           <Route path="/product/:productId">
