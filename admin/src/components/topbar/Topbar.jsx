@@ -1,8 +1,21 @@
 import React from "react";
 import "./topbar.css";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { logout } from "../../context/authContext/AuthActions";
+import { useHistory } from "react-router-dom";
 
 export default function Topbar() {
+  const { dispatch } = useContext(AuthContext)
+  const navigate = useHistory()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    dispatch(logout())
+    navigate.push("/login")
+  }
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -10,6 +23,7 @@ export default function Topbar() {
           <span className="logo">lamaadmin</span>
         </div>
         <div className="topRight">
+          <button className="logout" onClick={handleClick}>Logout</button>
           <div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>

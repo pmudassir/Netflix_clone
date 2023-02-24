@@ -55,3 +55,13 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+.logout{
+  border: none;
+  background-color: darkblue;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
