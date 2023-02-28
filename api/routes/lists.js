@@ -9,12 +9,12 @@ router.post("/", verify, async (req, res) => {
 
         try {
             const savedList = await newList.save()
-            res.status(201).json(savedList)
+            return res.status(201).json(savedList)
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You are not an admin!")
+        return res.status(403).json("You are not an admin!")
     }
 })
 
@@ -23,12 +23,12 @@ router.delete("/:id", verify, async (req, res) => {
     if (req.user.isAdmin) {
         try {
             await List.findByIdAndDelete(req.params.id)
-            res.status(201).json("List has been deleted!")
+            return res.status(201).json("List has been deleted!")
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You are not an admin!")
+        return res.status(403).json("You are not an admin!")
     }
 })
 

@@ -4,30 +4,38 @@ import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+import { MovieContext } from "../../context/movieContext/MovieContext";
+import { useEffect } from "react";
+import { getMovies } from "../../context/movieContext/apiCalls"
 
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
+  const { movies, dispatch } = useContext(MovieContext)
+
+  useEffect(() => {
+    getMovies(dispatch)
+  }, [dispatch])
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    // setData(data.filter((item) => item.id !== id));
   };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "product",
-      headerName: "Product",
+      field: "movies",
+      headerName: "Movie",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            {params.row.title}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
+    { field: "genre", headerName: "Genre", width: 200 },
     {
       field: "status",
       headerName: "Status",
@@ -61,7 +69,7 @@ export default function ProductList() {
   return (
     <div className="productList">
       <DataGrid
-        rows={data}
+        rows={movies}
         disableSelectionOnClick
         columns={columns}
         pageSize={8}

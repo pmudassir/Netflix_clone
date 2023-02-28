@@ -15,12 +15,12 @@ router.put("/:id", verify, async (req, res) => {
                 { $set: req.body },
                 { new: true }
             )   //updates and return the new user info
-            res.status(200).json(updatedUser)
+            return res.status(200).json(updatedUser)
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You can only update your account!")
+        return res.status(403).json("You can only update your account!")
     }
 })
 
@@ -29,12 +29,12 @@ router.delete("/:id", verify, async (req, res) => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
         try {
             await User.findByIdAndDelete(req.params.id)
-            res.status(200).json("User has been deleted")
+            return res.status(200).json("User has been deleted")
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You can only delete your account!")
+        return res.status(403).json("You can only delete your account!")
     }
 })
 
@@ -52,15 +52,15 @@ router.get("/find/:id", async (req, res) => {
 //GET ALL
 router.get("/", verify, async (req, res) => {
     const query = req.query.new
-    if (req.user.isAdmin) {
+    if (req.user && req.user.isAdmin) {
         try {
             const users = query ? await User.find().sort({ _id: - 1 }).limit(5) : await User.find()
-            res.status(200).json(users)
+            return res.status(200).json(users)
         } catch (error) {
             res.status(500).json(error)
         }
     } else {
-        res.status(403).json("You aren't allowed to see all users!")
+        return res.status(403).json("You aren't allowed to see all users!")
     }
 })
 
