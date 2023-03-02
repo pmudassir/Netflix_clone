@@ -1,12 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import "./movie.css";
-import Chart from "../../components/chart/Chart"
-import { movieData } from "../../dummyData"
 import { Publish } from "@material-ui/icons";
 
 export default function Movie() {
     const location = useLocation()
-    console.log(location);
+    const movie = location.state.movie
+    console.log(movie);
 
     return (
         <div className="movie">
@@ -19,25 +18,25 @@ export default function Movie() {
             <div className="movieTop">
                 <div className="movieTopRight">
                     <div className="movieInfoTop">
-                        <img src="https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="movieInfoImg" />
-                        <span className="movieName">Apple Airpods</span>
+                        <img src={movie.img} alt="" className="movieInfoImg" />
+                        <span className="movieName">{movie.title}</span>
                     </div>
                     <div className="movieInfoBottom">
                         <div className="movieInfoItem">
                             <span className="movieInfoKey">id:</span>
-                            <span className="movieInfoValue">123</span>
+                            <span className="movieInfoValue">{movie._id}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">sales:</span>
-                            <span className="movieInfoValue">5123</span>
+                            <span className="movieInfoKey">genre:</span>
+                            <span className="movieInfoValue">{movie.genre}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">active:</span>
-                            <span className="movieInfoValue">yes</span>
+                            <span className="movieInfoKey">year:</span>
+                            <span className="movieInfoValue">{movie.year}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">in stock:</span>
-                            <span className="movieInfoValue">no</span>
+                            <span className="movieInfoKey">limit:</span>
+                            <span className="movieInfoValue">{movie.limit}</span>
                         </div>
                     </div>
                 </div>

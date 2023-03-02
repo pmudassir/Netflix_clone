@@ -1,9 +1,7 @@
 import "./movieList.css";
 import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { movieRows } from "../../dummyData";
+import { DeleteOutline } from "@material-ui/icons"; 
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useContext } from "react";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import { useEffect } from "react";
@@ -47,7 +45,7 @@ export default function MovieList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/movie/" + params.row._id} state={{ movies: params.row }}>
+            <Link to={{ pathname: `/movie/ + ${params.row._id}`, state: { movie: params.row } }} >
               <button className="movieListEdit">Edit</button>
             </Link>
             <DeleteOutline
