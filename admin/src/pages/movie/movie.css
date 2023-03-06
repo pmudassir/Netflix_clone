@@ -63,6 +63,10 @@
   justify-content: space-between;
 }
 
+.movieInfoKey{
+  margin-right: 20px;
+}
+
 .movieInfoValue {
   font-weight: 300;
 }
