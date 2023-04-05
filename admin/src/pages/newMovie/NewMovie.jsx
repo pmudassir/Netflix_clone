@@ -8,6 +8,7 @@ export default function NewMovie() {
   const [imgSm, setImgSm] = useState(null)
   const [trailer, setTrailer] = useState(null)
   const [video, setVideo] = useState(null)
+  const [uploaded, setUploaded] = useState(0)
 
   const handleChange = (e) => {
     setMovie({ ...movie, [e.target.name]: e.target.value })
@@ -69,7 +70,11 @@ export default function NewMovie() {
           <label>Video</label>
           <input type="file" name="video" onChange={(e) => setVideo(e.target.files[0])} />
         </div>
-        <button className="addMovieButton">Create</button>
+        {uploaded === 5 ? (
+          <button className="addMovieButton">Create</button>
+        ) : (
+          <button className="addMovieButton">Upload</button>
+        )}
       </form>
     </div>
   );
