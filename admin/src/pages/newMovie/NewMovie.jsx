@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./newMovie.css";
+import storage from "../../firebase";
 
 export default function NewMovie() {
   const [movie, setMovie] = useState(null)
   const [img, setImg] = useState(null)
-  const [imageTitle, setImageTitle] = useState(null)
+  const [imgTitle, setImgTitle] = useState(null)
   const [imgSm, setImgSm] = useState(null)
   const [trailer, setTrailer] = useState(null)
   const [video, setVideo] = useState(null)
@@ -12,6 +13,23 @@ export default function NewMovie() {
 
   const handleChange = (e) => {
     setMovie({ ...movie, [e.target.name]: e.target.value })
+  }
+
+  const upload = (items) => {
+    items.forEach((item) => {
+      const uploadTask = storage.ref(`/items/${item.file.name}`).put(item)
+    });
+  }
+
+  const handleUpload = (e) => {
+    e.preventDefault()
+    upload([
+      { file: img, label: "img" },
+      { file: imgTitle, label: "imgTitle" },
+      { file: imgSm, label: "imgSm" },
+      { file: trailer, label: "trailer" },
+      { file: video, label: "video" },
+    ])
   }
 
   return (
@@ -24,7 +42,7 @@ export default function NewMovie() {
         </div>
         <div className="addMovieItem">
           <label>Title image</label>
-          <input type="file" id="imgTitle" name="imgTitle" onChange={(e) => setImageTitle(e.target.files[0])} />
+          <input type="file" id="imgTitle" name="imgTitle" onChange={(e) => setImgTitle(e.target.files[0])} />
         </div>
         <div className="addMovieItem">
           <label>Thumbnail image</label>
