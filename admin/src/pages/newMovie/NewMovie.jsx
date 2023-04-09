@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./newMovie.css";
-import storage from "../../firebase";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function NewMovie() {
   const [movie, setMovie] = useState(null)
@@ -15,9 +15,38 @@ export default function NewMovie() {
     setMovie({ ...movie, [e.target.name]: e.target.value })
   }
 
+  // this function takes each items create a storage in firebase cloud and uploads them to the referenced storage space
   const upload = (items) => {
     items.forEach((item) => {
-      const uploadTask = storage.ref(`/items/${item.file.name}`).put(item)
+      const storage = getStorage();
+      const metadata = {
+        contentType: 'image/jpeg'
+      };
+
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      const fileName = new Date().getTime() + item.label + item.file.name
+      const storageRef = ref(storage, 'images/' + fileName);
+      const uploadTask = uploadBytesResumable(storageRef, item.file, metadata);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => { console.log(error); },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setMovie((prev) => {
+              return { ...prev, [item.label]: downloadURL }
+            })
+            setUploaded((prev) => prev + 1)
+            console.log('File available at', downloadURL);
+          });
+        }
+      );
     });
   }
 
@@ -31,6 +60,11 @@ export default function NewMovie() {
       { file: video, label: "video" },
     ])
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+  console.log(movie);
 
   return (
     <div className="newMovie">
@@ -89,9 +123,9 @@ export default function NewMovie() {
           <input type="file" name="video" onChange={(e) => setVideo(e.target.files[0])} />
         </div>
         {uploaded === 5 ? (
-          <button className="addMovieButton">Create</button>
+          <button className="addMovieButton" onClick={handleSubmit}>Create</button>
         ) : (
-          <button className="addMovieButton">Upload</button>
+          <button className="addMovieButton" onClick={handleUpload}>Upload</button>
         )}
       </form>
     </div>
