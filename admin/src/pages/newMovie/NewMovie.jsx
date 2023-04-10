@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./newMovie.css";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { createMovie } from "../../context/movieContext/apiCalls";
+import { MovieContext } from "../../context/movieContext/MovieContext"
+import app from "../../firebase"
 
 export default function NewMovie() {
   const [movie, setMovie] = useState(null)
@@ -10,6 +13,8 @@ export default function NewMovie() {
   const [trailer, setTrailer] = useState(null)
   const [video, setVideo] = useState(null)
   const [uploaded, setUploaded] = useState(0)
+
+  const { dispatch } = useContext(MovieContext)
 
   const handleChange = (e) => {
     setMovie({ ...movie, [e.target.name]: e.target.value })
@@ -63,6 +68,7 @@ export default function NewMovie() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    createMovie(movie, dispatch)
   }
   console.log(movie);
 
